@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TestBfor</string>
+    <string name="search_pokemons">Search by Pokemon name</string>
+    <string name="pokemon_stats">Stats</string>
+    <string name="pokemon_height">Height: %1$d</string>
+    <string name="pokemon_weight">Weight: %1$d</string>
+    <string name="pokemon_base_stat">Base Stat: %1$d</string>
+    <string name="pokemon_effort">Effort: %1$d</string>
+</resources>
