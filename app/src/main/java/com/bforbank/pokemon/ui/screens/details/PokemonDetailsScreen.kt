@@ -101,8 +101,8 @@ fun DetailsContent(
     ) {
         item {
             Row(
-                modifier = Modifier.padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
                     text = stringResource(R.string.pokemon_height, uiModel.height),

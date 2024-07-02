@@ -9,6 +9,7 @@ data class PokemonsUiModel(
     val error: PokemonsErrorUiModel? = null,
     val pokemons: List<PokemonUiModel>? = null,
     val isSearching: Boolean = false,
+    val searchedPokemon: String= "",
     val navigation: PokemonsNavigation = PokemonsNavigation.NONE
 ) : Parcelable
 

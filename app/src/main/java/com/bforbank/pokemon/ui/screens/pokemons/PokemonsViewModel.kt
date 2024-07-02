@@ -151,7 +151,8 @@ class PokemonsViewModel @Inject constructor(
                     uiModel.copy(
                         pokemons = pokemonsUiModelMapper.map(
                             Pokemons(filteredPokemons)
-                        )
+                        ),
+                        searchedPokemon = text
                     )
                 }
             }

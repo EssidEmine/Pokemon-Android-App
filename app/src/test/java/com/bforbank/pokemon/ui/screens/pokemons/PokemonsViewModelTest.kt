@@ -236,7 +236,8 @@ class PokemonsViewModelTest {
                         name = "Pikachu",
                         id = 1
                     )
-                )
+                ),
+                searchedPokemon = "Pikachu"
             ),
             uiModelHandler.lastValue
         )

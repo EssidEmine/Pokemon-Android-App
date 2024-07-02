@@ -59,7 +59,7 @@ fun PokemonScreen(
     onBackPressed: () -> Unit,
 ) {
     val uiState by viewModel.uiModelFlow.collectAsStateWithLifecycle()
-    val searchedPokemon = remember { mutableStateOf("") }
+    val searchedPokemon = remember { mutableStateOf(uiState.searchedPokemon) }
 
     BackHandler { onBackPressed() }
 
