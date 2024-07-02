@@ -20,7 +20,11 @@ class PokemonDetailsUiModelMapperImpl @Inject constructor() : PokemonDetailsUiMo
                 stats = stats.map {
                     StatsUiModel(
                         baseStat = it.baseStat,
-                        effort = it.effort,
+                        effort = if (it.effort > 0) {
+                            it.effort
+                        } else {
+                            null
+                        },
                         name = it.stat.name.uppercase(locale = Locale.getDefault())
                     )
                 },

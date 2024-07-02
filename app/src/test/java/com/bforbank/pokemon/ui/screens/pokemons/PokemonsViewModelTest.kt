@@ -190,8 +190,8 @@ class PokemonsViewModelTest {
         assertEquals(
             PokemonsUiModel(
                 pokemons = listOf(
-                    PokemonUiModel(name = "Pikachu", id = 1),
-                    PokemonUiModel(name = "Charmander", id = 2)
+                    PokemonUiModel(name = "Charmander", id = 2),
+                    PokemonUiModel(name = "Pikachu", id = 1)
                 ),
                 isLoading = false
             ),

@@ -21,7 +21,7 @@ data class PokemonDetailsContentUiModel(
 @Parcelize
 data class StatsUiModel(
     val baseStat: Int,
-    val effort: Int,
+    val effort: Int?,
     val name: String
 ) : Parcelable
 

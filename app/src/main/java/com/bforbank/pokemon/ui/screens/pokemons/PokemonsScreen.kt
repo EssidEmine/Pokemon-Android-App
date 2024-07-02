@@ -3,14 +3,13 @@ package com.bforbank.pokemon.ui.screens.pokemons
 import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -18,7 +17,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -144,41 +142,56 @@ private fun PokemonsContent(
         if (reachedBottom) onLoadMore()
     }
 
-    uiState.pokemons?.let { pokemons ->
+    uiState.pokemons?.let {
+        val pokemons = it.groupBy { groupe ->
+            groupe.name.first().uppercaseChar()
+        }
+
         LazyColumn(
-            modifier = modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             state = listState,
             userScrollEnabled = true,
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(pokemons.size) {
-                Column(
-                    modifier = Modifier
-                        .padding(vertical = 8.dp)
-                        .animateItemPlacement()
-                        .clickable {
-                            onShowDetails(uiState.pokemons[it].id)
-                        },
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(
-                        text = pokemons[it].name,
-                        fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.inverseSurface,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Divider()
+            pokemons.forEach { (letter, pokemonsStartingWithLetter) ->
+                stickyHeader {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.inverseSurface)
+                    ) {
+                        Text(
+                            text = "$letter",
+                            color = MaterialTheme.colorScheme.surface,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(8.dp)
+                        )
+                    }
                 }
 
+                items(pokemonsStartingWithLetter.size) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .clickable { onShowDetails(pokemonsStartingWithLetter[it].id) },
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Text(
+                            text = pokemonsStartingWithLetter[it].name,
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
+                    }
+                }
             }
         }
     }
 }
+
 
 private fun LazyListState.reachedBottom(buffer: Int = 1): Boolean {
     val lastVisibleItem = this.layoutInfo.visibleItemsInfo.lastOrNull()

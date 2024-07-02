@@ -17,23 +17,23 @@ class PokemonsUiModelMapperImplTest {
             content = listOf(
                 Pokemon(
                     id = 1,
-                    name = "Pikachu",
+                    name = "pikachu",
                 ),
                 Pokemon(
                     id = 2,
-                    name = "Charmander",
+                    name = "charmander",
                 )
             )
         )
         val expectedUiModels = listOf(
             PokemonUiModel(
+                name = "Charmander",
+                id = 2,
+            ),
+            PokemonUiModel(
                 name = "Pikachu",
                 id = 1,
             ),
-            PokemonUiModel(
-                name = "Charmander",
-                id = 2,
-            )
         )
         // Act
         val result = mapper.map(pokemons)

@@ -80,7 +80,7 @@ class PokemonsViewModel @Inject constructor(
                 )
                     .collect {
                         when (val result = it) {
-                            is Result.Error<PokemonsError> -> { } //not needed
+                            is Result.Error<PokemonsError> -> {} //not needed
 
                             is Result.Success -> {
                                 val existingPokemonsContent = pokemons.content ?: emptyList()
@@ -96,7 +96,7 @@ class PokemonsViewModel @Inject constructor(
 
                                 val updatedPokemonsUiModel = (
                                         currentPokemonsUiModel + newPokemonsUiModel
-                                        ).distinct()
+                                        ).sortedByDescending { it.name }.reversed().distinct()
 
                                 uiModelHandler.updateUiModel { uiModel ->
                                     uiModel.copy(

@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -101,16 +101,18 @@ fun DetailsContent(
     ) {
         item {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
                     text = stringResource(R.string.pokemon_height, uiModel.height),
-                    style = MaterialTheme.typography.h5
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Text(
                     text = stringResource(R.string.pokemon_weight, uiModel.weight),
-                    style = MaterialTheme.typography.h5
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
         }
@@ -133,14 +135,14 @@ fun DetailsContent(
 
         item {
             Text(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.pokemon_stats),
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily.Monospace
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Divider()
+            HorizontalDivider(Modifier.padding(horizontal = 32.dp))
         }
 
         items(uiModel.stats.size) {
@@ -150,17 +152,20 @@ fun DetailsContent(
             ) {
                 Text(
                     text = uiModel.stats[it].name,
-                    style = MaterialTheme.typography.h5,
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = stringResource(R.string.pokemon_base_stat, uiModel.stats[it].baseStat),
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.bodyMedium
                 )
-                Text(
-                    text = stringResource(R.string.pokemon_effort, uiModel.stats[it].effort),
-                    style = MaterialTheme.typography.body2
-                )
+                uiModel.stats[it].effort?.let {
+                    Text(
+                        text = stringResource(R.string.pokemon_effort, it),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+
             }
         }
     }
