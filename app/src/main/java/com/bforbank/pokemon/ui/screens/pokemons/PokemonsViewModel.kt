@@ -74,35 +74,30 @@ class PokemonsViewModel @Inject constructor(
         if (!isSearching) {
             viewModelScope.launch(dispatcherProvider.io) {
                 val newOffset = currentPagingOffset + POKEMONS_LIMIT
-                println("====> loading new lis $newOffset")
                 getPokemonsUseCase(
                     limit = POKEMONS_LIMIT,
                     offset = newOffset
                 )
                     .collect {
                         when (val result = it) {
-                            is Result.Error<PokemonsError> -> {
-                                // Handle error if needed
-                            }
+                            is Result.Error<PokemonsError> -> { } //not needed
 
                             is Result.Success -> {
                                 val existingPokemonsContent = pokemons.content ?: emptyList()
                                 val newPokemonsContent = result.data.content ?: emptyList()
 
-                                // Update pokemons.content
                                 pokemons = pokemons.copy(
                                     content = existingPokemonsContent + newPokemonsContent
                                 )
 
-                                // Update pokemonsUiModel
                                 val currentUiModel = uiModelHandler.uiModelFlow.value
                                 val currentPokemonsUiModel = currentUiModel.pokemons ?: emptyList()
                                 val newPokemonsUiModel = pokemonsUiModelMapper.map(result.data)
 
-                                val updatedPokemonsUiModel =
-                                    (currentPokemonsUiModel + newPokemonsUiModel).distinct()
+                                val updatedPokemonsUiModel = (
+                                        currentPokemonsUiModel + newPokemonsUiModel
+                                        ).distinct()
 
-                                println("====> we have now ${updatedPokemonsUiModel.count()}")
                                 uiModelHandler.updateUiModel { uiModel ->
                                     uiModel.copy(
                                         pokemons = updatedPokemonsUiModel,

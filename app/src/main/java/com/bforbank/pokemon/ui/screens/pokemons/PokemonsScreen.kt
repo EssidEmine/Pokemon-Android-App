@@ -129,7 +129,7 @@ fun PokemonScreen(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun PokemonsContent(
     modifier: Modifier = Modifier,
@@ -179,8 +179,6 @@ private fun PokemonsContent(
             }
         }
     }
-
-
 }
 
 private fun LazyListState.reachedBottom(buffer: Int = 1): Boolean {

@@ -30,7 +30,7 @@ class PokemonsMapperImpl @Inject constructor() : PokemonsMapper {
     }
 }
 
-fun extractLastDigitFromUrl(url: String): Int {
+private fun extractLastDigitFromUrl(url: String): Int {
     val cleanUrl = url.removeSuffix("/")
     val lastSegment = cleanUrl.substringAfterLast("/")
     return lastSegment.toInt()
